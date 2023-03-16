@@ -1,0 +1,28 @@
+﻿@page
+@model TheRandomFork.Pages.Restaurants.HistoryVisitModel
+@{
+    ViewData["Title"] = "Restaurant Visits";
+}
+
+<h1>History of the restaurants</h1>
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">When</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    @for (var i = 0; i< Model.restaurantNames.Count; i++)
+    {
+        <tr>
+            <td>@Model.restaurantNames[i]</td>
+            <td>@Model.restaurantVisits[i]</td>
+            <td>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@Model.restaurantIds[i]">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

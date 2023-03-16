@@ -1,0 +1,65 @@
+﻿@page
+@using TheRandomFork.Models.Domain
+@model TheRandomFork.Pages.RestaurantModel
+@{
+    ViewData["Title"] = "Restaurant";
+}
+
+<h1>Restaurant List</h1>
+<form method="post" class="card p-3">
+    <div class="row">
+        <div asp-validation-summary="All"></div>
+    </div>
+    <div class="form-group mb-0 align-middle">
+            <label asp-for="newRestaurant.Name">Name</label>
+            <input type="text" asp-for="newRestaurant.Name" class="mr-5">
+            <label asp-for="newRestaurant.Road">Road</label>
+            <input type="text" asp-for="newRestaurant.Road" class="mr-5">
+            <label asp-for="newRestaurant.City"></label>
+            <input asp-for="newRestaurant.City" class="mr-5" />
+    </div>
+    <div class="form-group mb-0 align-middle">
+            <label asp-for="newRestaurant.PhoneNumber"></label>
+            <input asp-for="newRestaurant.PhoneNumber" class="mr-5" />
+            <label asp-for="newRestaurant.Type">Type</label>
+            <select asp-for="newRestaurant.Type" asp-items="Html.GetEnumSelectList<RestaurantType>()" class="mr-5"></select>
+            <label asp-for="newRestaurant.Homepage"></label>
+            <input asp-for="newRestaurant.Homepage" class="mr-5" />
+            <button class="btn btn-primary">Add</button>
+    </div>
+</form>
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Road</th>
+            <th scope="col">City</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Type</th>
+            <th scope="col">Homepage</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    @foreach (var restaurant in Model.restaurants)
+    {
+        <tr>
+            <td>@restaurant.Name</td>
+            <td>@restaurant.Road</td>
+            <td>@restaurant.City</td>
+            <td>@restaurant.PhoneNumber</td>
+            <td>@($"{restaurant.Type}")</td>
+            <td><a href=@restaurant.Homepage>@restaurant.Homepage</a></td>
+            <td>
+                <form method="post" asp-page-handler="Delete" asp-route-id="@restaurant.Id">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+                <a href="/Restaurants/Edit/@restaurant.Id" class="btn btn-dark">Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+}

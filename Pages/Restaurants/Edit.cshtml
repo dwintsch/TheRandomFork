@@ -1,0 +1,45 @@
+﻿@page "{id:Guid}"
+@using TheRandomFork.Models.Domain
+@model TheRandomFork.Pages.Restaurants.EditModel
+@{
+    ViewData["Title"] = "Restaurant";
+}
+
+<h1>Restaurant List, Update</h1>
+    <form method="post" class="card p-3" asp-route-id="@Model.updateRestaurant.Id">
+    <div class="row">
+        <div asp-validation-summary="All"></div>
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <label>Name</label>
+        <input type="text" asp-for="updateRestaurant.Name" class="mr-5">
+        <label>Road</label>
+        <input type="text" asp-for="updateRestaurant.Road" class="mr-5">
+        <label>City</label>
+        <input asp-for="updateRestaurant.City" class="mr-5" />
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <label>Phone number</label>
+        <input asp-for="updateRestaurant.PhoneNumber" class="mr-5" />
+        <label>Type</label>
+        <select asp-for="updateRestaurant.Type" asp-items="Html.GetEnumSelectList<RestaurantType>()" class="mr-5"></select>
+        <label>Homepage</label>
+        <input asp-for="updateRestaurant.Homepage" class="mr-5" />
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <h5> Restaurant closed at: </h5>
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <label >Monday: </label>
+        <input asp-for="updateRestaurant.Monday" type="checkbox" checked=@Model.updateRestaurant.Monday>
+        <label> Thuesday: </label>
+        <input asp-for="updateRestaurant.Tuesday" type="checkbox" checked=@Model.updateRestaurant.Tuesday>
+        <label> Wednesday: </label>
+        <input asp-for="updateRestaurant.Wednesday" type="checkbox" checked=@Model.updateRestaurant.Wednesday>
+        <label> Thursday: </label>
+        <input asp-for="updateRestaurant.Thursday" type="checkbox" checked=@Model.updateRestaurant.Thursday>
+        <label> Friday: </label>
+        <input asp-for="updateRestaurant.Friday" type="checkbox" checked=@Model.updateRestaurant.Friday>
+        <button class="btn btn-primary">Update</button>
+    </div>
+</form>

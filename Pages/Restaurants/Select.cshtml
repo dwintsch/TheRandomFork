@@ -1,0 +1,56 @@
+﻿@page "{id:Guid?}"
+@model TheRandomFork.Pages.Restaurants.SelectModel
+@{
+    ViewData["Title"] = "Restaurant select";
+    var message = ViewData["message"]?.ToString();
+}
+<h1>
+    Restaurant for Today, please press the start selection
+</h1>
+<form method="post" class="card p-3">
+    <div class="row">
+        <div asp-validation-summary="All"></div>
+    </div>
+    <div class="form-group mb-0 align-middle">
+        <button class="btn btn-primary" asp-page-handler="SelectRestaurant">Start selection</button>
+    </div>
+</form>
+
+@if(!string.IsNullOrWhiteSpace(message))
+{ // Show message if available
+    <div class="alert alert-success" role="alert">
+        @message
+    </div>
+}
+
+<table class="table mt-5">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Road</th>
+            <th scope="col">City</th>
+            <th scope="col">Phone Number</th>
+            <th scope="col">Type</th>
+            <th scope="col">Homepage</th>
+            <th scope="col"> </th>
+        </tr>
+    </thead>
+    @if (Model.Restaurant.Id != Guid.Empty)
+    { // Show the restaurant if it's not empty. => It was selected randomly
+        <tr>
+            <td>@Model.Restaurant.Name</td>
+            <td>@Model.Restaurant.Road</td>
+            <td>@Model.Restaurant.City</td>
+            <td>@Model.Restaurant.PhoneNumber</td>
+            <td>@($"{Model.Restaurant.Type}")</td>
+            <td><a href=@Model.Restaurant.Homepage>@Model.Restaurant.Homepage</a></td>
+        </tr>
+    }
+</table>
+
+@if (Model.Restaurant.Id != Guid.Empty)
+{ // Show the button if a restaurant was randomly generated
+    <form method="post" class="card p-3" >
+        <input type="submit" id="btnSave" value="Select the restaurant and go to eat...." asp-page-handler="SaveRestaurant" asp-route-id="@Model.Restaurant.Id" />
+    </form>
+}
